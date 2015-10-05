@@ -1,0 +1,12 @@
+{% load wagtailimages_tags %}
+{% image self.image_one fill-1000x500 as image_one %}
+{% image self.image_two fill-1000x500 as image_two %}
+{% image self.image_three fill-1000x500 as image_three %}
+
+<section class="container article-spacing">
+    <div class="row">
+        <img src="{{ image_one.url }}" width="100%" height="auto" class="col-md-4 hidden-sm hidden-xs" />
+        <img src="{{ image_two.url }}" width="100%" height="auto" class="col-md-4" />
+        <img src="{{ image_three.url }}" width="100%" height="auto" class="col-md-4 hidden-sm hidden-xs" />
+    </div>
+</section>

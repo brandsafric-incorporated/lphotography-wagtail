@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags lphotography_tags %}
+
+{% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
+
+{% block content %}
+
+    {% block navbar %}
+        {% get_site_root as site_root %}
+        {% top_menu parent=site_root calling_page=self %}
+    {% endblock %}
+
+    {% if self.page_header %}
+        {% image self.background_image fill-2000x1000 as background_image %}
+        <header style="background-image: url({{ background_image.url }}); background-color: #{{ self.background_image.dominant_background_color }};">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="site-heading">
+                            <h1>{{ self.page_header.site_title }}</h1>
+                            <span class="sub-heading">{{ self.page_header.site_subtitle }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-title row">
+                    {% if self.long_title %}
+                        <h1 class="col-md-12">{{ self.long_title }}</h1>
+                    {% else %}
+                        <h1 class="col-md-12">{{ self.title }}</h1>
+                    {% endif %}
+                </div>
+            </div>
+
+        </header>
+    {% endif %}
+
+    <article>
+        {% for block in self.body %}
+            {{ block }}
+        {% endfor %}
+    </article>
+
+{% endblock %}

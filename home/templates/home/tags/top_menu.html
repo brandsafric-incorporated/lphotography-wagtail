@@ -1,0 +1,32 @@
+{% load lphotography_tags wagtailcore_tags %}
+{% get_site_root as site_root %}
+
+{# Standard implementation of bootstrap inverted theme dropdown menu, will show top level links and their children #}
+<nav class="navbar-inverse" role="navigation">
+    <div class="container-fluid">
+        <div class="nav-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#top-menu" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% pageurl site_root %}" title="{{ site_root.title }}" data-placement="bottom">{{ site_root.title }}</a>
+        </div>
+
+        <div class="navbar-collapse collapse" id="top-menu">
+            <ul class="nav navbar-nav">
+                {% for menu_item in menu_items %}
+                    <li class="{% if menu_item.show_dropdown %}dropdown{% endif %}{% if menu_item.active %}active{% endif %}">
+                        {% if menu_item.show_dropdown %}
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">{{ menu_item.title }}</a>
+                        {% else %}
+                            <a href="{% pageurl menu_item %}">{{ menu_item.title }}</a>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</nav>

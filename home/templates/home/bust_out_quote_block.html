@@ -1,0 +1,26 @@
+{% load wagtailimages_tags %}
+{% image self.image fill-1000x300 as bo_image %}
+
+{% spaceless %}
+<section class="bust-out bust-out-quote container-fluid article-spacing" style="background-color: #{{ self.image.dominant_midground_color }}">
+    <div class="row">
+        {% if self.inverted %}
+            <div class="col-md-6 ">
+                <p class="bust-out-quote-quote">{{ self.quote }}</p>
+                <p class="bust-out-quote-source">&#8212; {{ self.source }}</p>
+            </div>
+            <div class="col-md-6">
+                <img src="{{ bo_image.url }}" width="100%" height="auto" />
+            </div>
+        {% else %}
+            <div class="col-md-6">
+                <img src="{{ bo_image.url }}" width="100%" height="auto" />
+            </div>
+            <div class="col-md-6">
+                <p class="bust-out-quote-quote">{{ self.quote }}</p>
+                <p class="bust-out-quote-source">&#8212; {{ self.source }}</p>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endspaceless %}
