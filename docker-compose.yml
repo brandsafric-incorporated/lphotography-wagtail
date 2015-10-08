@@ -1,0 +1,19 @@
+django:
+    restart: always
+    build: ./django
+    expose: 
+        - 8001
+    volumes:
+        - /usr/src/app/static
+    command: /usr/local/bin/uwsgi --socket :8001 --module lphotography.wsgi
+
+nginx:
+    restart: always
+    build: ./nginx
+    ports: "80:80"
+    volumes: 
+        - /www/static
+    volumes_from:
+        - django
+    links:
+        - django:django
