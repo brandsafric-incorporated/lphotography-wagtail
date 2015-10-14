@@ -29,4 +29,3 @@ RUN apt-get update && apt-get install -y \
 RUN /usr/bin/pip install -r /home/app/requirements.txt
 
 RUN python manage.py collectstatic --noinput
-CMD uwsgi --socket :8001 --module lphotography.wsgi
