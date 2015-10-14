@@ -18,7 +18,15 @@ ADD django-nginx.conf /etc/nginx/sites-enabled/django-nginx.conf
 # Copy application files to nginx configured location
 COPY ./ /home/app
 
-RUN pip install -r /home/app/requirements.txt
+RUN apt-get update && apt-get install -y \
+    gfortran
+    libopenblas-dev \
+    liblapack-dev \
+    python-pip \
+    python-dev \
+    build-essential
+
+RUN /usr/bin/pip install -r /home/app/requirements.txt
 
 RUN python manage.py collectstatic --noinput
 CMD uwsgi --socket :8001 --module lphotography.wsgi
