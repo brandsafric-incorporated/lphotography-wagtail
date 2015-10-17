@@ -1,5 +1,7 @@
 # Use passenger as base image for a better development web application foundation
-FROM phusion/passenger-full:0.9.17
+FROM phusion/passenger-full:0.9.1i7
+
+MAINTAINER Christopher Smith <chris@funkyrobot.net>
 
 # Set environment variables
 ENV HOME /root
@@ -19,7 +21,7 @@ ADD django-nginx.conf /etc/nginx/sites-enabled/django-nginx.conf
 COPY ./ /home/app
 
 RUN apt-get update && apt-get install -y \
-    gfortran
+    gfortran \
     libopenblas-dev \
     liblapack-dev \
     python-pip \
@@ -28,4 +30,4 @@ RUN apt-get update && apt-get install -y \
 
 RUN /usr/bin/pip install -r /home/app/requirements.txt
 
-RUN python manage.py collectstatic --noinput
+RUN /usr/bin/python /home/app/manage.py collectstatic --noinput
