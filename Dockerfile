@@ -1,5 +1,5 @@
 # Use passenger as base image for a better development web application foundation
-FROM phusion/passenger-full:0.9.1i7
+FROM phusion/passenger-full:0.9.17
 
 MAINTAINER Christopher Smith <chris@funkyrobot.net>
 
@@ -31,3 +31,5 @@ RUN apt-get update && apt-get install -y \
 RUN /usr/bin/pip install -r /home/app/requirements.txt
 
 RUN /usr/bin/python /home/app/manage.py collectstatic --noinput
+
+EXPOSE 80
